@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "displayName": "Dev Sentinel",
   "description": "开发哨兵 - 追踪文件操作，提供编译检查和智能通知",
-  "author": "Jerry",
+  "author": {
+    "name": "Jerry"
+  },
   "license": "MIT",
   "homepage": "https://github.com/jerryokk/dev-sentinel",
   "repository": {
