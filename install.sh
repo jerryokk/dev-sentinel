@@ -41,6 +41,7 @@ if [[ "${BASH_SOURCE[0]}" == *"/dev/fd/"* ]] || [ -z "${BASH_SOURCE[0]}" ] || [ 
     # 下载所需文件
     FILES=(
         "plugins/dev-sentinel/scripts/user-prompt-submit.sh"
+        "plugins/dev-sentinel/scripts/pre-tool-use.sh"
         "plugins/dev-sentinel/scripts/post-tool-use.sh"
         "plugins/dev-sentinel/scripts/stop-notification.sh"
         "plugins/dev-sentinel/scripts/notify.sh"
@@ -69,6 +70,7 @@ mkdir -p "$INSTALL_DIR/.claude/scripts"
 # 复制脚本文件
 echo "📋 复制脚本文件..."
 cp "$PLUGIN_DIR/scripts/user-prompt-submit.sh" "$INSTALL_DIR/.claude/hooks/"
+cp "$PLUGIN_DIR/scripts/pre-tool-use.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/post-tool-use.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/stop-notification.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/notify.sh" "$INSTALL_DIR/.claude/scripts/"
@@ -100,6 +102,18 @@ if [ -f "$SETTINGS_FILE" ]; then
           {
             "type": "command",
             "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/user-prompt-submit.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-tool-use.sh",
             "timeout": 30
           }
         ]
@@ -153,6 +167,18 @@ else
           {
             "type": "command",
             "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/post-tool-use.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-tool-use.sh",
             "timeout": 30
           }
         ]
