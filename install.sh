@@ -137,7 +137,7 @@ if [ -f "$SETTINGS_FILE" ]; then
           {
             "type": "command",
             "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop.sh",
-            "timeout": 60
+            "timeout": 300
           }
         ]
       }
@@ -190,7 +190,7 @@ else
           {
             "type": "command",
             "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop.sh",
-            "timeout": 60
+            "timeout": 300
           }
         ]
       }
