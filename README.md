@@ -33,10 +33,10 @@
 
 ### 安装
 
-#### 方式 1：通过 Claude Code 插件系统（推荐）
+#### 方式 1：通过 Marketplace（推荐）
 
 ```bash
-# 添加插件 Marketplace
+# 添加插件市场
 /plugin marketplace add https://github.com/jerryokk/dev-sentinel.git
 
 # 安装插件
@@ -46,18 +46,14 @@
 #### 方式 2：手动安装
 
 ```bash
-# 克隆仓库
-git clone https://github.com/jerryokk/dev-sentinel.git
-cd dev-sentinel
-
-# 复制到 Claude Code 插件目录
-cp -r . ~/.claude/plugins/dev-sentinel/
+# 克隆仓库到插件目录
+git clone https://github.com/jerryokk/dev-sentinel.git ~/.claude/plugins/dev-sentinel
 
 # 添加执行权限
 chmod +x ~/.claude/plugins/dev-sentinel/scripts/*.sh
-
-# 重启 Claude Code
 ```
+
+安装完成后，重启 Claude Code 或开始新会话即可生效。
 
 ### 验证安装
 
@@ -74,10 +70,10 @@ chmod +x ~/.claude/plugins/dev-sentinel/scripts/*.sh
 # 卸载插件
 /plugin uninstall dev-sentinel
 
-# 删除 Marketplace
+# 删除 Marketplace（可选）
 /plugin marketplace remove https://github.com/jerryokk/dev-sentinel.git
 
-# 手动删除（如果需要）
+# 或手动删除
 rm -rf ~/.claude/plugins/dev-sentinel
 ```
 
