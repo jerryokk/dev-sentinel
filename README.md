@@ -33,7 +33,31 @@
 
 ### 安装
 
-#### 方式 1：通过 Marketplace（推荐）
+#### 方式 1：一键安装到项目（推荐）
+
+```bash
+# 克隆仓库
+git clone https://github.com/jerryokk/dev-sentinel.git /tmp/dev-sentinel
+
+# 进入你的项目目录
+cd /path/to/your/project
+
+# 运行安装脚本
+bash /tmp/dev-sentinel/install.sh
+```
+
+或者在项目目录直接运行：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jerryokk/dev-sentinel/main/install.sh | bash -s .
+```
+
+**特点：**
+- ✅ 安装到项目的 `.claude/` 目录，不影响全局
+- ✅ 配置可提交到 Git，团队共享
+- ✅ 每个项目独立配置
+
+#### 方式 2：通过 Marketplace（全局安装）
 
 ```bash
 # 添加插件市场
@@ -41,16 +65,19 @@
 
 # 安装插件
 /plugin install dev-sentinel
+
+# 给脚本添加执行权限
+chmod +x ~/.claude/plugins/marketplaces/dev-sentinel-marketplace/plugins/dev-sentinel/scripts/*.sh
 ```
 
-#### 方式 2：手动安装
+#### 方式 3：手动安装（全局）
 
 ```bash
 # 克隆仓库到插件目录
 git clone https://github.com/jerryokk/dev-sentinel.git ~/.claude/plugins/dev-sentinel
 
 # 添加执行权限
-chmod +x ~/.claude/plugins/dev-sentinel/scripts/*.sh
+chmod +x ~/.claude/plugins/dev-sentinel/plugins/dev-sentinel/scripts/*.sh
 ```
 
 安装完成后，重启 Claude Code 或开始新会话即可生效。
