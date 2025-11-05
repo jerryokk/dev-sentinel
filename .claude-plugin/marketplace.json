@@ -2,10 +2,11 @@
   "name": "dev-sentinel-marketplace",
   "displayName": "Dev Sentinel Marketplace",
   "description": "开发哨兵插件市场",
+  "owner": "jerryokk",
   "plugins": [
     {
       "name": "dev-sentinel",
-      "source": "."
+      "source": "./"
     }
   ]
 }
