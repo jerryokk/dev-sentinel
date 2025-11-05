@@ -15,9 +15,11 @@ else
     echo "📂 将安装到指定目录: $INSTALL_DIR"
 fi
 
-# 确认安装
-read -p "确认安装? (y/n) " -n 1 -r
-echo
+echo ""
+echo -n "确认安装? (y/n) "
+read -r REPLY
+echo ""
+
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "❌ 安装已取消"
     exit 1
