@@ -2,11 +2,14 @@
   "name": "dev-sentinel-marketplace",
   "displayName": "Dev Sentinel Marketplace",
   "description": "开发哨兵插件市场",
-  "owner": "jerryokk",
+  "owner": {
+    "name": "jerryokk"
+  },
   "plugins": [
     {
       "name": "dev-sentinel",
-      "source": "./"
+      "source": "./",
+      "description": "开发哨兵 - 追踪文件操作，提供编译检查和智能通知"
     }
   ]
 }
