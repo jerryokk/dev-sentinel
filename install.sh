@@ -17,13 +17,48 @@ fi
 
 echo ""
 
+# GitHub 仓库信息
+GITHUB_REPO="jerryokk/dev-sentinel"
+GITHUB_RAW="https://raw.githubusercontent.com/$GITHUB_REPO/main"
+
 # 获取脚本所在目录
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)"
 PLUGIN_DIR="$SCRIPT_DIR/plugins/dev-sentinel"
 
-if [ ! -d "$PLUGIN_DIR" ]; then
-    echo "❌ 错误: 找不到插件目录 $PLUGIN_DIR"
-    exit 1
+# 检测是否从管道安装（curl | bash）
+IS_REMOTE_INSTALL=false
+if [[ "${BASH_SOURCE[0]}" == *"/dev/fd/"* ]] || [ -z "${BASH_SOURCE[0]}" ] || [ ! -d "$PLUGIN_DIR" ]; then
+    IS_REMOTE_INSTALL=true
+    echo "🌐 检测到远程安装模式"
+    echo "📥 正在下载文件..."
+
+    # 创建临时目录
+    TMP_DIR=$(mktemp -d)
+    PLUGIN_DIR="$TMP_DIR/plugins/dev-sentinel"
+    mkdir -p "$PLUGIN_DIR/scripts"
+    mkdir -p "$PLUGIN_DIR/hooks"
+
+    # 下载所需文件
+    FILES=(
+        "plugins/dev-sentinel/scripts/user-prompt-submit.sh"
+        "plugins/dev-sentinel/scripts/post-tool-use.sh"
+        "plugins/dev-sentinel/scripts/stop-notification.sh"
+        "plugins/dev-sentinel/scripts/notify.sh"
+        "plugins/dev-sentinel/scripts/notify.ps1"
+    )
+
+    for file in "${FILES[@]}"; do
+        target="$TMP_DIR/$file"
+        mkdir -p "$(dirname "$target")"
+        if ! curl -fsSL "$GITHUB_RAW/$file" -o "$target"; then
+            echo "❌ 错误: 下载文件失败 $file"
+            rm -rf "$TMP_DIR"
+            exit 1
+        fi
+    done
+
+    echo "✅ 文件下载完成"
+    echo ""
 fi
 
 # 创建目录
@@ -138,6 +173,12 @@ else
 }
 EOF
     echo "✅ 已创建 settings.json"
+fi
+
+# 清理临时目录
+if [ "$IS_REMOTE_INSTALL" = true ]; then
+    echo "🧹 清理临时文件..."
+    rm -rf "$TMP_DIR"
 fi
 
 echo ""
