@@ -49,11 +49,7 @@ bash /tmp/dev-sentinel/install.sh
 或者在项目目录直接运行：
 
 ```bash
-# 交互式安装（需要确认）
 curl -fsSL https://raw.githubusercontent.com/jerryokk/dev-sentinel/main/install.sh | bash -s .
-
-# 自动安装（无需确认）
-curl -fsSL https://raw.githubusercontent.com/jerryokk/dev-sentinel/main/install.sh | bash -s -- -y .
 ```
 
 **特点：**

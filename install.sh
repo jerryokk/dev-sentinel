@@ -6,43 +6,16 @@ set -e
 echo "🛡️  Dev Sentinel 安装程序"
 echo ""
 
-# 解析参数
-AUTO_YES=false
-INSTALL_DIR=""
-
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -y|--yes)
-            AUTO_YES=true
-            shift
-            ;;
-        *)
-            INSTALL_DIR="$1"
-            shift
-            ;;
-    esac
-done
-
 # 检测安装目录
-if [ -z "$INSTALL_DIR" ]; then
+if [ -z "$1" ]; then
     INSTALL_DIR="$(pwd)"
-    echo "📂 将安装到当前目录: $INSTALL_DIR"
+    echo "📂 安装到当前目录: $INSTALL_DIR"
 else
-    echo "📂 将安装到指定目录: $INSTALL_DIR"
+    INSTALL_DIR="$1"
+    echo "📂 安装到指定目录: $INSTALL_DIR"
 fi
 
-# 确认安装
-if [ "$AUTO_YES" = false ]; then
-    echo ""
-    echo -n "确认安装? (y/n) "
-    read -r REPLY < /dev/tty
-    echo ""
-
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "❌ 安装已取消"
-        exit 1
-    fi
-fi
+echo ""
 
 # 获取脚本所在目录
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
