@@ -43,7 +43,7 @@ if [[ "${BASH_SOURCE[0]}" == *"/dev/fd/"* ]] || [ -z "${BASH_SOURCE[0]}" ] || [ 
         "plugins/dev-sentinel/scripts/user-prompt-submit.sh"
         "plugins/dev-sentinel/scripts/pre-tool-use.sh"
         "plugins/dev-sentinel/scripts/post-tool-use.sh"
-        "plugins/dev-sentinel/scripts/stop-notification.sh"
+        "plugins/dev-sentinel/scripts/stop.sh"
         "plugins/dev-sentinel/scripts/notify.sh"
         "plugins/dev-sentinel/scripts/notify.ps1"
     )
@@ -72,7 +72,7 @@ echo "📋 复制脚本文件..."
 cp "$PLUGIN_DIR/scripts/user-prompt-submit.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/pre-tool-use.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/post-tool-use.sh" "$INSTALL_DIR/.claude/hooks/"
-cp "$PLUGIN_DIR/scripts/stop-notification.sh" "$INSTALL_DIR/.claude/hooks/"
+cp "$PLUGIN_DIR/scripts/stop.sh" "$INSTALL_DIR/.claude/hooks/"
 cp "$PLUGIN_DIR/scripts/notify.sh" "$INSTALL_DIR/.claude/scripts/"
 cp "$PLUGIN_DIR/scripts/notify.ps1" "$INSTALL_DIR/.claude/scripts/"
 
@@ -83,8 +83,8 @@ chmod +x "$INSTALL_DIR/.claude/scripts"/*.sh
 
 # 更新脚本中的路径引用
 echo "🔧 更新路径配置..."
-sed -i.bak 's|\${CLAUDE_PLUGIN_ROOT}|${CLAUDE_PROJECT_DIR}/.claude|g' "$INSTALL_DIR/.claude/hooks/stop-notification.sh"
-rm -f "$INSTALL_DIR/.claude/hooks/stop-notification.sh.bak"
+sed -i.bak 's|\${CLAUDE_PLUGIN_ROOT}|${CLAUDE_PROJECT_DIR}/.claude|g' "$INSTALL_DIR/.claude/hooks/stop.sh"
+rm -f "$INSTALL_DIR/.claude/hooks/stop.sh.bak"
 
 # 创建或更新 settings.json
 SETTINGS_FILE="$INSTALL_DIR/.claude/settings.json"
@@ -136,7 +136,7 @@ if [ -f "$SETTINGS_FILE" ]; then
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop-notification.sh",
+            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop.sh",
             "timeout": 60
           }
         ]
@@ -189,7 +189,7 @@ else
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop-notification.sh",
+            "command": "bash ${CLAUDE_PROJECT_DIR}/.claude/hooks/stop.sh",
             "timeout": 60
           }
         ]

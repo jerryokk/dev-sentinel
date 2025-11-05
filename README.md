@@ -135,7 +135,7 @@ rm -rf ~/.claude/plugins/dev-sentinel
 - ✅ 显示编译错误信息
 
 **启用方法：**
-编辑 `scripts/stop-notification.sh:23`，取消注释
+编辑 `scripts/stop.sh:23`，取消注释
 
 ### 3. 智能通知
 
@@ -156,7 +156,7 @@ rm -rf ~/.claude/plugins/dev-sentinel
 - 操作的文件列表（前 10 个）
 
 **启用方法：**
-编辑 `scripts/stop-notification.sh:70`，填入 Webhook URL
+编辑 `scripts/stop.sh:70`，填入 Webhook URL
 
 ### 4. 操作统计
 
@@ -226,7 +226,7 @@ fi
 
 #### 2. 启用 CMake 编译检查
 
-编辑 `scripts/stop-notification.sh`，取消注释第 23-37 行：
+编辑 `scripts/stop.sh`，取消注释第 23-37 行：
 
 ```bash
 if [ -f "$PROJECT_DIR/CMakeLists.txt" ]; then
@@ -240,7 +240,7 @@ fi
 
 #### 3. 启用飞书通知
 
-编辑 `scripts/stop-notification.sh`，填入 Webhook 并取消注释第 70-93 行：
+编辑 `scripts/stop.sh`，填入 Webhook 并取消注释第 70-93 行：
 
 ```bash
 WEBHOOK="https://open.feishu.cn/open-apis/bot/v2/hook/YOUR_WEBHOOK"

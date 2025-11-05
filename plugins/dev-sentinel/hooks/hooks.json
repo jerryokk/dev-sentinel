@@ -41,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/stop-notification.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/stop.sh",
             "timeout": 300
           }
         ]
