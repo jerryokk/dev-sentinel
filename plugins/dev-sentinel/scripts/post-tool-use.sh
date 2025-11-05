@@ -33,11 +33,29 @@ echo ""
 
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
+# 从 PreToolUse 钩子保存的状态文件读取文件原始状态
+STATE_DIR="$PROJECT_ROOT/.claude/dev-sentinel"
+FILE_HASH=$(echo "$FILE_PATH" | md5sum | awk '{print $1}')
+STATE_FILE="$STATE_DIR/file_state_${FILE_HASH}.tmp"
+
 # 判断是创建还是修改
-if [ -f "$FILE_PATH" ]; then
-    OPERATION="修改"
+if [ -f "$STATE_FILE" ]; then
+    FILE_STATE=$(cat "$STATE_FILE")
+    if [ "$FILE_STATE" = "new" ]; then
+        OPERATION="创建"
+    else
+        OPERATION="修改"
+    fi
+    # 清理临时状态文件
+    rm -f "$STATE_FILE"
+    rm -f "$STATE_DIR/file_path_${FILE_HASH}.tmp"
 else
-    OPERATION="创建"
+    # 如果没有状态文件（可能 PreToolUse 未执行），回退到原逻辑
+    if [ -f "$FILE_PATH" ]; then
+        OPERATION="修改"
+    else
+        OPERATION="创建"
+    fi
 fi
 
 # 记录格式：[时间戳] 操作类型 | 文件路径
